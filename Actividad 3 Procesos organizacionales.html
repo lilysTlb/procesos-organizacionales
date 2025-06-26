@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Procesos organizacionales</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Open+Sans&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+    :root {
+    --primary: #212121;
+    --accent: #d72638;
+    --bg: #f7f7f7;
+    --card-bg: white;
+    --text: #333;
+    }
+    * {
+    box-sizing: border-box;
+    }
+    body {
+    margin: 0;
+    font-family: 'Open Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    }
+    header {
+    background-color: var(--primary);
+    color: white;
+    padding: 40px 30px;
+    text-align: center;
+    }
+    header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 64px;
+    margin: 0;
+    letter-spacing: 2px;
+    }
+    header p {
+    font-size: 22px;
+    margin-top: 12px;
+    font-style: italic;
+    font-weight: 300;
+    }
+    .buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    padding: 30px 15px;
+    flex-wrap: wrap;
+    }
+    .buttons button {
+    padding: 14px 28px;
+    font-size: 18px;
+    border: 2px solid var(--accent);
+    background-color: white;
+    color: var(--accent);
+    font-family: 'Playfair Display', serif;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-width: 220px;
+    }
+    .buttons button:hover {
+    background-color: var(--accent);
+    color: white;
+    }
+    .container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+    padding: 30px 15px;
+    max-width: 1200px;
+    margin: 0 auto 60px;
+    }
+    .card {
+    background: var(--card-bg);
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    width: 340px;
+    padding: 25px;
+    transition: all 0.4s ease;
+    cursor: pointer;
+    border-left: 6px solid transparent;
+    }
+    .card:hover {
+    transform: scale(1.02);
+    border-left: 6px solid var(--accent);
+    }
+    .card h3 {
+    font-family: 'Playfair Display', serif;
+    margin: 0 0 10px;
+    font-size: 26px;
+    color: var(--primary);
+    }
+    .card p {
+    font-size: 18px;
+    margin: 0;
+    }
+    .extra {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease;
+    font-size: 16px;
+    color: #555;
+    margin-top: 12px;
+    }
+    .card.active {
+    background-color: #fef0f1;
+    }
+    .card.active .extra {
+    max-height: 200px;
+    }
+    .hidden {
+    display: none;
+    }
+    #comparativo {
+    max-width: 900px;
+    margin: 0 auto 60px;
+    padding: 20px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+    #comparativo h2 {
+    font-family: 'Playfair Display', serif;
+    color: var(--accent);
+    margin-bottom: 20px;
+    text-align: center;
+    }
+    #comparativo table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    font-size: 18px;
+    }
+    #comparativo th, #comparativo td {
+    padding: 12px 16px;
+    border-bottom: 1px solid #ddd;
+    }
+    #comparativo th {
+    background-color: var(--accent);
+    color: white;
+    }
+    #comparativo tr:hover {
+    background-color: #f5f5f5;
+    }
+    footer {
+    display: flex;
+    gap: 30px;
+    background-color: var(--primary);
+    color: white;
+    padding: 20px;
+    font-size: 14px;
+    justify-content: center;
+    flex-wrap: wrap;
+    }
+    footer .footer {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-right: 30px;
+    }
+    footer div p {
+    margin: 4px 0;
+    }
+    .floating-buttons {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    z-index: 999;
+    }
+    .floating-buttons button {
+    background-color: var(--accent);
+    color: white;
+    border: none;
+    padding: 12px 16px;
+    font-size: 16px;
+    font-family: 'Open Sans', sans-serif;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    cursor: pointer;
+    transition: background 0.3s ease;
+    }
+    .floating-buttons button:hover {
+    background-color: #b81f2c;
+    }
+    .floating-buttons i {
+    margin-right: 8px;
+    }
+</style>
+</head>
+<body>
+<header>
+    <h1>Procesos organizacionales</h1>
+    <p>Una mirada al detalle de los ciclos administrativos: Compra-Pago y Venta-Cobranza</p>
+</header>
+
+<div class="buttons">
+    <button onclick="mostrarCiclo('compra')">Ciclo Compra - Pago</button>
+    <button onclick="mostrarCiclo('venta')">Ciclo Venta - Cobranza</button>
+    <button onclick="mostrarCiclo('comparativo')">Cuadro comparativo</button>
+</div>
+
+<div class="floating-buttons">
+    <button onclick="marcarTodas()"><i class="fas fa-check-double"></i> Marcar todas</button>
+    <button onclick="desmarcarTodas()"><i class="fas fa-xmark"></i> Desmarcar todas</button>
+</div>
+
+<div id="compra" class="container">
+<div class="card" onclick="toggleCard(this)">
+    <h3>1. Detección de necesidad</h3>
+    <p>Se identifica que faltan insumos o recursos.</p>
+    <div class="extra">Ejemplo: El sector de enfermería informa que faltan guantes descartables en el depósito.</div>
+</div>
+<div class="card" onclick="toggleCard(this)">
+    <h3>2. Requisición de compra</h3>
+    <p>Se realiza una solicitud interna.</p>
+    <div class="extra">Ejemplo: Se completa un formulario con los insumos requeridos y se envía al sector compras.</div>
+</div>
+<div class="card" onclick="toggleCard(this)">
+    <h3>3. Aprobación</h3>
+    <p>Un superior autoriza la compra.</p>
+    <div class="extra">Ejemplo: El jefe de área revisa y firma la solicitud para continuar con el proceso.</div>
+</div>
+<div class="card" onclick="toggleCard(this)">
+    <h3>4. Orden de compra</h3>
+    <p>Se emite y se envía al proveedor.</p>
+    <div class="extra">Ejemplo: Se genera una orden en el sistema con los detalles de productos, cantidad y precio.</div>
+</div>
+<div class="card" onclick="toggleCard(this)">
+    <h3>5. Recepción</h3>
+    <p>Se reciben los productos.</p>
+    <div class="extra">Ejemplo: El proveedor entrega los productos y el área de depósito verifica calidad y cantidad.</div>
+</div>
+<div class="card" onclick="toggleCard(this)">
+    <h3>6. Facturación</h3>
+    <p>El proveedor envía la factura.</p>
+    <div class="extra">Ejemplo: La factura llega junto con los productos o por correo electrónico.</div>
+</div>
+<div class="card" onclick="toggleCard(this)">
+    <h3>7. Registro contable</h3>
+    <p>Se registra la obligación de pago.</p>
+    <div class="extra">Ejemplo: La factura es ingresada al sistema contable como cuenta por pagar.</div>
+</div>
+<div class="card" onclick="toggleCard(this)">
+    <h3>8. Pago</h3>
+    <p>Se realiza el pago al proveedor.</p>
+    <div class="extra">Ejemplo: Se transfiere el importe acordado a los 30 días de recibida la factura.</div>
+</div>
+<div class="card" onclick="toggleCard(this)">
+    <h3>9. Archivo</h3>
+    <p>Se guarda toda la documentación.</p>
+    <div class="extra">Ejemplo: Se escanea la factura y se guarda en una carpeta digital del sistema.</div>
+</div>
+</div>
+
+
+<div id="venta" class="container hidden">
+  <div class="card" onclick="toggleCard(this)">
+    <h3>1. Pedido del cliente</h3>
+    <p>El cliente realiza una solicitud de compra.</p>
+    <div class="extra">Ejemplo: Una clínica solicita 100 jeringas descartables por correo electrónico.</div>
+  </div>
+  <div class="card" onclick="toggleCard(this)">
+    <h3>2. Verificación</h3>
+    <p>Se verifica disponibilidad y condiciones.</p>
+    <div class="extra">Ejemplo: Se comprueba que hay stock suficiente y se calcula el costo total.</div>
+  </div>
+  <div class="card" onclick="toggleCard(this)">
+    <h3>3. Aprobación</h3>
+    <p>Se acepta y confirma el pedido.</p>
+    <div class="extra">Ejemplo: El encargado del área comercial aprueba el pedido y confirma plazos de entrega.</div>
+  </div>
+  <div class="card" onclick="toggleCard(this)">
+    <h3>4. Preparación</h3>
+    <p>Se preparan los productos para entrega.</p>
+    <div class="extra">Ejemplo: Personal del depósito embala correctamente los insumos para su transporte.</div>
+  </div>
+  <div class="card" onclick="toggleCard(this)">
+    <h3>5. Entrega</h3>
+    <p>Se envían los productos al cliente.</p>
+    <div class="extra">Ejemplo: Un transportista retira el pedido y entrega con remito firmado.</div>
+  </div>
+  <div class="card" onclick="toggleCard(this)">
+    <h3>6. Factura</h3>
+    <p>Se emite la factura correspondiente.</p>
+    <div class="extra">Ejemplo: Se genera una factura electrónica y se envía por correo al cliente.</div>
+  </div>
+  <div class="card" onclick="toggleCard(this)">
+    <h3>7. Registro contable</h3>
+    <p>Se registra la cuenta por cobrar.</p>
+    <div class="extra">Ejemplo: El sistema contable asigna el importe a cobrar en el plazo acordado.</div>
+  </div>
+  <div class="card" onclick="toggleCard(this)">
+    <h3>8. Cobranza</h3>
+    <p>El cliente realiza el pago.</p>
+    <div class="extra">Ejemplo: La empresa recibe una transferencia bancaria como pago del pedido.</div>
+  </div>
+  <div class="card" onclick="toggleCard(this)">
+    <h3>9. Archivo</h3>
+    <p>Se conservan los documentos del proceso.</p>
+    <div class="extra">Ejemplo: Se archiva la factura y el comprobante de pago digitalmente.</div>
+  </div>
+</div>
+
+<div id="comparativo" class="hidden">
+    <h2>Cuadro Comparativo</h2>
+    <table>
+    <thead>
+        <tr>
+        <th>Pasos</th>
+        <th>Compra - Pago</th>
+        <th>Venta - Cobranza</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr><td>1. Inicio</td><td>Detección de necesidad</td><td>Pedido del cliente</td></tr>
+        <tr><td>2. Solicitud</td><td>Requisición de compra</td><td>Verificación de stock y precio</td></tr>
+        <tr><td>3. Autorización</td><td>Aprobación gerencial</td><td>Aprobación del pedido</td></tr>
+        <tr><td>4. Documento</td><td>Orden de compra</td><td>Preparación del pedido</td></tr>
+        <tr><td>5. Recepción/Entrega</td><td>Recepción de productos</td><td>Entrega al cliente</td></tr>
+        <tr><td>6. Facturación</td><td>Factura del proveedor</td><td>Factura al cliente</td></tr>
+        <tr><td>7. Registro</td><td>Registro en cuentas por pagar</td><td>Registro en cuentas por cobrar</td></tr>
+        <tr><td>8. Pago/Cobro</td><td>Pago al proveedor</td><td>Cobro al cliente</td></tr>
+        <tr><td>9. Archivo</td><td>Archivo de documentos</td><td>Archivo de documentos</td></tr>
+    </tbody>
+    </table>
+</div>
+
+<footer>
+    <div class="footer">
+    <p>alumna: Tolaba</p>
+    <p>Colegio: C.T.P.O.B.A</p>
+    <p>Año: 6to 1ra</p>
+    </div>
+    <div>
+    <p>Profesor: Nicolás Alvarado</p>
+    <p>Materia: Sistemas de información</p>
+    </div>
+</footer>
+
+<script>
+    function mostrarCiclo(ciclo) {
+    document.getElementById('compra').classList.add('hidden');
+    document.getElementById('venta').classList.add('hidden');
+    document.getElementById('comparativo').classList.add('hidden');
+    document.getElementById(ciclo).classList.remove('hidden');
+    }
+
+    function toggleCard(card) {
+    card.classList.toggle('active');
+    }
+
+    function marcarTodas() {
+    const seccion = document.querySelector('.container:not(.hidden)');
+    const cards = seccion.querySelectorAll('.card');
+    cards.forEach(card => card.classList.add('active'));
+    }
+
+    function desmarcarTodas() {
+    const seccion = document.querySelector('.container:not(.hidden)');
+    const cards = seccion.querySelectorAll('.card');
+    cards.forEach(card => card.classList.remove('active'));
+    }
+</script>
+</body>
+</html>
